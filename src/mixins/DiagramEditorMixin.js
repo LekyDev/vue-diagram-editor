@@ -142,8 +142,10 @@ export default () => ({
           y: pos.y
         });
       } else if (this.activePort) {
-        const {x, y} = this.convertXYtoViewPort(pos.pageX, pos.pageY);
-        this.currentCursorPos = {x, y};
+        if (this.activePort.type === 'out') {
+          const {x, y} = this.convertXYtoViewPort(pos.pageX, pos.pageY);
+          this.currentCursorPos = {x, y};
+        }
       }
     },
 
