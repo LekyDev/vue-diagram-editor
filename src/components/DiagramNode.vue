@@ -25,8 +25,9 @@
       :y="node.y + 2"
       :width="node.size.width - 4"
       :title="node.title"
+      :category="node.category"
       :dragging="dragging"
-      :deletable="nodeDeletable"
+      :deletable="node.deletable"
       @mousedown.native.stop="onDragStart"
       @delete="deleteNode"
     />
@@ -53,13 +54,15 @@
          :height="portsHeight"
     >
       <DiagramPort
-        v-for="([port, portTitle], portIndex) in portsIn"
+        v-for="([port, portData], portIndex) in portsIn"
         :key="node.id+'_in_'+port"
         :id="node.id+'_in_'+port"
-        :title="portTitle"
+        :title="getPortTitle(portData)"
         :width="(portIndex + 1) > portsOut.length ? node.width : node.width / 2"
         :x="0"
         :y="portIndex * 18"
+        :type="portData.type"
+        :value="portData.value"
         :disabled="portsInDisabled[port]"
         :available="portsInAvailable[port]"
         :hovered="isHoveredPort('in', port)"
@@ -70,16 +73,18 @@
       />
 
       <DiagramPort
-        v-for="([port, portTitle], portIndex) in portsOut"
+        v-for="([port, portData], portIndex) in portsOut"
         :key="node.id+'_out_'+port"
         :id="node.id+'_out_'+port"
-        :title="portTitle"
+        :title="getPortTitle(portData)"
         :width="node.width + 8"
         :x="0"
         :y="portIndex * 18"
         :disabled="portsOutDisabled[port]"
         :available="portsOutAvailable[port]"
         :hovered="isHoveredPort('out', port)"
+        :type="portData.type"
+        :value="portData.value"
         align="end"
         @mousedown="mouseDownPort('out', port, $event)"
         @mouseenter="mouseEnterPort('out', port, $event)"
@@ -188,6 +193,10 @@ export default {
 
     deleteNode() {
       this.$emit("delete", this.node.id);
+    },
+
+    getPortTitle(portData) {
+      return portData.value.toString();
     },
 
     onDragStart(e) {

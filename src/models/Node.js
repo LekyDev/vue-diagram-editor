@@ -10,6 +10,8 @@ export default class Node {
 
   id = null;
   title = null;
+  category = null;
+  deletable = null;
   /**
    * @type {Size}
    */
@@ -22,10 +24,10 @@ export default class Node {
   data = {}; // user object
 
   portsIn = {
-    // default: Port
+    // default: { type: 'text', value: '' }
   };
   portsOut = {
-    // default: Port
+    // default: { type: 'text', value: '' }
   };
 
   /**
@@ -33,10 +35,16 @@ export default class Node {
    * @param  {String} attr.title
    * @param  {Coordinates} attr.coordinates
    * @param  {Size} attr.size
+   * @param  {Object} attr.portsIn
+   * @param  {Object} attr.portsOut
+   * @param  {Object} attr.category
+   * @param  {Object} attr.deletable
    */
   constructor(attr) {
     this.id = Node.prepareProp('id', attr.id);
     this.title = attr.title;
+    this.category = Node.prepareProp('category', attr.category);
+    this.deletable = Node.prepareProp('deletable', attr.deletable);
     this.coordinates = Node.prepareProp('coordinates', attr.coordinates);
     this.size = Node.prepareProp('size', attr.size);
     this.data = Node.prepareProp('data', attr.data);
@@ -55,9 +63,19 @@ export default class Node {
         return new Size(value || {});
       case 'portsIn':
       case 'portsOut':
-        return {...(value || {})};
+        return Object.entries(value || {}).reduce((acc, [key, val]) => {
+          acc[key] = {
+            type: val.type || 'text',
+            value: val.value || ''
+          };
+          return acc;
+        }, {});
       case 'data':
         return value || {};
+      case 'category':
+        return value || "default";
+      case 'deletable':
+        return value !== false;
       default:
         return value;
     }

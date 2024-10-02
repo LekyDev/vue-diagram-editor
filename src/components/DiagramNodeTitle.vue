@@ -16,8 +16,8 @@
       height="16"
     />
     <svg x="0" y="0" :width="deletable ? width - 17 : width" height="16">
-      <title>{{ title }}</title>
-      <text x="2" y="13" font-size="15" font-weight="normal" fill="#fff">{{ title }}</text>
+      <title>{{ title }} {{ category }}</title>
+      <text x="2" y="13" font-size="15" font-weight="normal" fill="#fff">{{ title + " &lt;" + category + "&gt;" }}</text>
     </svg>
 
     <svg
@@ -63,6 +63,10 @@ export default {
       required: true
     },
     title: {
+      type: String,
+      required: true
+    },
+    category: {
       type: String,
       required: true
     },

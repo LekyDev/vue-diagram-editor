@@ -16,7 +16,7 @@
       font-size="8pt"
       :text-anchor="props.align"
     >
-      {{ props.title }}
+      {{ props.title }}{{ "&lt;" + props.type + "&gt;" }}
     </text>
   </svg>
 </template>

@@ -124,7 +124,7 @@ export default {
     keyDownHandler(e) {
       // delete
       if (e.keyCode === 46) {
-        if (this.selectedNode && this.nodeDeletable(this.nodes[this.selectedNode])) {
+        if (this.selectedNode && this.nodes[this.selectedNode].deletable !== false) {
           this.deleteNode(this.selectedNode);
         }
         if (this.selectedLink) {
