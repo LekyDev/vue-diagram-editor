@@ -26,7 +26,7 @@ function loadComponents() {
   loadContext(require.context('./components', false, /\.vue$/));
 
   if (process.env.NODE_ENV !== 'production') {
-    loadContext(require.context('./components/dev', false, /\.vue$/));
+    //loadContext(require.context('../../src/components/dev', false, /\.vue$/));
   }
 }
 
