@@ -1,6 +1,6 @@
 {
   "name": "vue-diagram-editor-improved",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Highly customizable diagram editor support for Vue.js",
   "author": "Maksim Kutishchev <max@amopro.ru>",
   "license": "Apache-2.0",

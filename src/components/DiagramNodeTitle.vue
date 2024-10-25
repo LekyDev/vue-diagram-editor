@@ -68,11 +68,15 @@ export default {
     },
     category: {
       type: String,
-      required: true
+      required: 'default'
     },
     deletable: {
       type: Boolean,
       default: true
+    },
+    color: {
+      type: String,
+      default: '#4249FF'
     },
     dragging: {
       type: Boolean,

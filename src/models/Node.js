@@ -12,6 +12,7 @@ export default class Node {
   title = null;
   category = null;
   deletable = null;
+  color = null;
   /**
    * @type {Size}
    */
@@ -38,6 +39,7 @@ export default class Node {
    * @param  {Object} attr.portsIn
    * @param  {Object} attr.portsOut
    * @param  {Object} attr.category
+   * @param  {Object} attr.color
    * @param  {Object} attr.deletable
    */
   constructor(attr) {
@@ -46,6 +48,7 @@ export default class Node {
     this.category = Node.prepareProp('category', attr.category);
     this.deletable = Node.prepareProp('deletable', attr.deletable);
     this.coordinates = Node.prepareProp('coordinates', attr.coordinates);
+    this.color = Node.prepareProp('color', attr.color);
     this.size = Node.prepareProp('size', attr.size);
     this.data = Node.prepareProp('data', attr.data);
 
@@ -74,6 +77,8 @@ export default class Node {
         return value || {};
       case 'category':
         return value || "default";
+      case 'color':
+        return value || "#4249FF";
       case 'deletable':
         return value !== false;
       default:

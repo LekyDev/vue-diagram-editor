@@ -12,7 +12,7 @@
       :height="node.height"
     />
     <rect
-      :fill="color(node)"
+      :fill="node.color ? node.color : color(node)"
       stroke="#000000"
       :stroke-width="selected ? 1 : 0"
       :x="node.x" :y="node.y"
@@ -26,6 +26,7 @@
       :width="node.size.width - 4"
       :title="node.title"
       :category="node.category"
+      :color="node.color"
       :dragging="dragging"
       :deletable="node.deletable"
       @mousedown.native.stop="onDragStart"
