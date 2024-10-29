@@ -11,6 +11,8 @@ export default class Node {
   id = null;
   title = null;
   category = null;
+  state = null;
+  performer = null;
   deletable = null;
   color = null;
   /**
@@ -40,12 +42,16 @@ export default class Node {
    * @param  {Object} attr.portsOut
    * @param  {Object} attr.category
    * @param  {Object} attr.color
+   * @param  {Object} attr.state
+   * @param  {Object} attr.performer
    * @param  {Object} attr.deletable
    */
   constructor(attr) {
     this.id = Node.prepareProp('id', attr.id);
     this.title = attr.title;
     this.category = Node.prepareProp('category', attr.category);
+    this.state = Node.prepareProp('state', attr.state);
+    this.performer = Node.prepareProp('performer', attr.performer);
     this.deletable = Node.prepareProp('deletable', attr.deletable);
     this.coordinates = Node.prepareProp('coordinates', attr.coordinates);
     this.color = Node.prepareProp('color', attr.color);
@@ -79,6 +85,10 @@ export default class Node {
         return value || "default";
       case 'color':
         return value || "#4249FF";
+      case 'state':
+        return value || "created";  
+      case 'performer':
+        return value || "performer";  
       case 'deletable':
         return value !== false;
       default:

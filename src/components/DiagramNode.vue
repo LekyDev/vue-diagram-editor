@@ -26,6 +26,8 @@
       :width="node.size.width - 4"
       :title="node.title"
       :category="node.category"
+      :state="node.state"
+      :performer="node.performer"
       :color="node.color"
       :dragging="dragging"
       :deletable="node.deletable"

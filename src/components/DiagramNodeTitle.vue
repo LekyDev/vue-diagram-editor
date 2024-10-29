@@ -17,7 +17,39 @@
     />
     <svg x="0" y="0" :width="deletable ? width - 17 : width" height="16">
       <title>{{ title }} {{ category }}</title>
-      <text x="2" y="13" font-size="15" font-weight="normal" fill="#fff">{{ title + " &lt;" + category + "&gt;" }}</text>
+
+      <!-- Spinner group positioned at the start before title and category -->
+      <g v-if="loading" transform="translate(8, 8)">
+        <circle
+          r="4"
+          cx="0"
+          cy="0"
+          fill="none"
+          stroke="#fff"
+          stroke-width="2"
+          stroke-dasharray="10"
+          stroke-dashoffset="2"
+        >
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 0 0"
+            to="360 0 0"
+            dur="2s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </g>
+
+      <text 
+        :x="loading ? 20 : 2" 
+        y="13" 
+        font-size="15" 
+        font-weight="normal" 
+        fill="#fff"
+      >
+        {{ title + " &lt;" + category + "&gt;" }}
+      </text>
     </svg>
 
     <svg
@@ -68,7 +100,7 @@ export default {
     },
     category: {
       type: String,
-      required: 'default'
+      default: 'default'
     },
     deletable: {
       type: Boolean,
@@ -81,11 +113,22 @@ export default {
     dragging: {
       type: Boolean,
       default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    state: {
+      type: String,
+      default: 'default'
     }
   },
   data: () => ({
     hover: false,
   }),
+  mounted() {
+    this.loading = this.state === 'running';
+  },
   computed: {
     titleFillOpacity() {
       return this.hover ? 0.7 : 0.5;
@@ -93,4 +136,3 @@ export default {
   },
 };
 </script>
-
