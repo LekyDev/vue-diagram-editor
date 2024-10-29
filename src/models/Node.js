@@ -86,7 +86,7 @@ export default class Node {
       case 'color':
         return value || "#4249FF";
       case 'state':
-        return value || "created";  
+        return value || null;
       case 'performer':
         return value || "performer";  
       case 'deletable':

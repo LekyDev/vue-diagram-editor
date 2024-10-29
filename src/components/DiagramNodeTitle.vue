@@ -114,20 +114,21 @@ export default {
       type: Boolean,
       default: false
     },
-    loading: {
-      type: Boolean,
-      default: false
-    },
     state: {
       type: String,
       default: 'default'
     }
   },
-  data: () => ({
-    hover: false,
-  }),
-  mounted() {
-    this.loading = this.state === 'running';
+  data() {
+    return {
+      hover: false,
+      loading: this?.state === 'running'
+    };
+  },
+  watch: {
+    state(newValue) {
+      this.loading = newValue === 'running';
+    }
   },
   computed: {
     titleFillOpacity() {
