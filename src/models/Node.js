@@ -88,7 +88,7 @@ export default class Node {
       case 'state':
         return value || null;
       case 'performer':
-        return value || "performer";  
+        return value || "CPU";
       case 'deletable':
         return value !== false;
       default:
