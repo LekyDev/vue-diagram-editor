@@ -5,7 +5,7 @@
   "author": "Maksim Kutishchev <max@amopro.ru>",
   "license": "Apache-2.0",
   "homepage": "https://vue-diagram-editor.js.org",
-  "repository": "max-kut/vue-diagram-editor",
+  "repository": "LekyDev/vue-diagram-editor",
   "main": "dist/vue-diagram-editor.cjs.js",
   "unpkg": "dist/vue-diagram-editor.umd.min.js",
   "css": "dist/vue-diagram-editor.min.css",
