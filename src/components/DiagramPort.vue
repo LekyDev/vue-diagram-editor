@@ -1,10 +1,22 @@
 <template functional>
   <svg :x="props.x" :y="props.y" :width="props.width" height="16">
     <rect
+      v-if="!props.isExecution"
       :fill="$options.fill(props.available, props.hovered)"
       :x="props.align==='start' ? 0 : (props.width - 10)"
       y="0"
       rx="5" ry="5"
+      :cursor="props.disabled ? 'default' : 'pointer'"
+      width="10"
+      height="10"
+      v-on="listeners"
+    />
+    <rect
+      v-else
+      fill="rgb(66, 73, 255)"
+      :x="props.align==='start' ? 0 : (props.width - 10)"
+      y="0"
+      rx="0" ry="0"
       :cursor="props.disabled ? 'default' : 'pointer'"
       width="10"
       height="10"

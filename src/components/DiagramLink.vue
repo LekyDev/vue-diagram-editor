@@ -12,7 +12,7 @@
     />
     <path
       :d="curve"
-      style="stroke:rgb(0,0,0);"
+      :style="strokeStyle"
       stroke-width="2"
       fill="none"
     />
@@ -57,6 +57,12 @@ export default {
     y2() {
       return this.endCoordinates.y;
     },
+    isExecutionFlow() {
+      const startPortIndex = this.getPortIndex('out', this.link.start_port);
+      const endPortIndex = this.getPortIndex('in', this.link.end_port);
+      
+      return startPortIndex === 0 && endPortIndex === 0;
+    },
 
     curve() {
       let x1 = Math.trunc(this.x1),
@@ -73,7 +79,26 @@ export default {
         return this.hovered ? 'stroke:rgba(0,0,255,0.6);' : 'stroke:rgba(0,0,255,0.4);';
       }
       return this.hovered ? 'stroke:rgba(255,0,0,0.5);' : 'stroke:rgba(255,0,0,0.0);';
+    },
+    strokeStyle() {
+      return this.isExecutionFlow ? 'stroke:rgb(0,80,255);' : 'stroke:rgb(0,0,0);';
     }
   },
+  methods: {
+    getPortIndex(type, portName) {
+      const node = type === 'out' ? this.nodeStart : this.nodeEnd;
+      const ports = type === 'out' ? node.portsOut : node.portsIn;
+      const portEntries = Object.entries(ports);
+      
+      for (let i = 0; i < portEntries.length; i++) {
+        const [port, _] = portEntries[i];
+        if (port === portName) {
+          return i;
+        }
+      }
+      
+      return -1;
+    }
+  }
 };
 </script>
