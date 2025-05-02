@@ -38,6 +38,7 @@
         :node-end="nodes[link.end_id]"
         :selected="selectedLink === link.id"
         @mousedown="selectLink(link.id)"
+        @type-changed="handleLinkTypeChange"
       />
       <DiagramNode
         v-for="node in nodes"
@@ -121,6 +122,11 @@ export default {
   },
 
   methods: {
+    handleLinkTypeChange({ linkId, type }) {
+      // Emit an event to parent component if needed
+      this.$emit('link-type-changed', { linkId, type });
+    },
+    
     keyDownHandler(e) {
       // delete
       if (e.keyCode === 46) {

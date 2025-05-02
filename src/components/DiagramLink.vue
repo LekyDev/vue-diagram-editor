@@ -18,6 +18,7 @@
     />
   </g>
 </template>
+
 <script>
 import Link from '../models/Link';
 import Node from '../models/Node';
@@ -30,11 +31,11 @@ export default {
     nodeEnd: {type: Node, required: true},
     selected: {type: Boolean, default: false}
   },
-
+  
   data: () => ({
     hovered: false
   }),
-
+  
   computed: {
     startCoordinates() {
       return this.nodeStart.getPortCoordinates('out', this.link.start_port);
@@ -45,15 +46,15 @@ export default {
     x1() {
       return this.startCoordinates.x - 2;
     },
-
+    
     y1() {
       return this.startCoordinates.y;
     },
-
+    
     x2() {
       return this.endCoordinates.x + 1;
     },
-
+    
     y2() {
       return this.endCoordinates.y;
     },
@@ -63,17 +64,17 @@ export default {
       
       return startPortIndex === 0 && endPortIndex === 0;
     },
-
+    
     curve() {
       let x1 = Math.trunc(this.x1),
         y1 = Math.trunc(this.y1),
         x2 = Math.trunc(this.x2),
         y2 = Math.trunc(this.y2);
-
+      
       let distance = Math.trunc(4 * Math.sqrt(Math.abs(x1 - x2))) + 10;
       return `M${x1},${y1} C${x1 + distance},${y1} ${x2 - distance},${y2} ${x2},${y2}`;
     },
-
+    
     largeStrokeStyle() {
       if (this.selected) {
         return this.hovered ? 'stroke:rgba(0,0,255,0.6);' : 'stroke:rgba(0,0,255,0.4);';
@@ -84,6 +85,20 @@ export default {
       return this.isExecutionFlow ? 'stroke:rgb(0,80,255);' : 'stroke:rgb(0,0,0);';
     }
   },
+  
+  watch: {
+    isExecutionFlow: {
+      immediate: true,
+      handler(isExecution) {
+        const newType = isExecution ? 'execution' : 'default';
+        if (this.link.type !== newType && this.isExecutionFlow) {
+          this.link.type = newType;
+          this.$emit('type-changed', { linkId: this.link.id, type: newType });
+        }
+      }
+    }
+  },
+  
   methods: {
     getPortIndex(type, portName) {
       const node = type === 'out' ? this.nodeStart : this.nodeEnd;
